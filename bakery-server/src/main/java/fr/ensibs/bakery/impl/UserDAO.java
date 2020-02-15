@@ -1,4 +1,4 @@
-package fr.ensibs.bakery;
+package fr.ensibs.bakery.impl;
 
 public class UserDAO {
 
@@ -21,6 +21,11 @@ public class UserDAO {
         if (UserDAO.instance == null)
             UserDAO.instance = new UserDAO();
         return UserDAO.instance;
+    }
+
+    public User getUser(String name) {
+        // TODO: query the database
+        return new User("1", name, Role.CUSTOMER);
     }
 
 }
