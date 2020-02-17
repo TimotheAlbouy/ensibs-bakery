@@ -1,4 +1,4 @@
-package fr.ensibs.bakery;
+package fr.ensibs.bakery.model;
 
 /**
  * Role enumeration for users in the database.

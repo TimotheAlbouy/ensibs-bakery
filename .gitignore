@@ -1,0 +1,8 @@
+# Target folders
+bakery-client/target/
+bakery-server/target/
+
+# IDEA files
+.idea/
+*.iml
+

@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <!-- Project description -->
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>fr.ensibs</groupId>
-  <artifactId>notification</artifactId>
-  <version>1</version>
-  <packaging>pom</packaging>
-  <name>Root of the notification application</name>
-  <description>A distributed application that does publish/subscribe of notifications for multiple users</description>
+    <!-- Project description -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.ensibs</groupId>
+    <artifactId>ensibs-bakery</artifactId>
+    <version>1</version>
+    <packaging>pom</packaging>
+    <name>Bakery application</name>
+    <description>A distributed application that manages users, orders and payments of a bakery</description>
   
-  <modules>
-    <module>notification-client</module>
-    <module>notification-server</module>
-  </modules>
+    <modules>
+        <module>bakery-server</module>
+        <module>bakery-client</module>
+    </modules>
   
 </project>
