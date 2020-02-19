@@ -6,29 +6,31 @@ import javax.jws.WebService;
 
 import fr.ensibs.bakery.model.Order;
 
+/**
+ * A web service that manages customers' orders.
+ */
 @WebService(name = "OrdersService", targetNamespace = "http://bakery.ensibs.fr")
 public interface OrdersService {
 	
 	/**
-	 * adds an order to the list of orders.
+	 * Add an order to the list of orders of the user.
+	 * @param token the token of the user
+	 * @param id the id of the product to order
+	 * @param quantity the quantity of the same product to order
 	 */
-	void addOrder();
+	void addOrder(String token, int id, int quantity);
 	
 	/**
-	 * creates an order.
+	 * Get the list of orders of the user.
+	 * @param token the token of the user
+	 * @return the list of orders of the user
 	 */
-	Order createOrder();
+	ArrayList<Order> getAllOrders(String token);
 	
 	/**
-	 * gives to the user the list of his orders.
-	 * @return a list of orders.
+	 * Get the list of products that the user can order.
+	 * @return the list of available products
 	 */
-	ArrayList<Order> viewOrders();
-	
-	/**
-	 * gives the list of products the user can order.
-	 * @return an array of available products.
-	 */
-	ArrayList<String> getList();
+	ArrayList<String> getAllProducts();
 	
 }

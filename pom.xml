@@ -14,7 +14,6 @@
   
     <modules>
         <module>bakery-server</module>
-        <module>bakery-client</module>
     </modules>
   
 </project>

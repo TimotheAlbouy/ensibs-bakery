@@ -1,18 +1,13 @@
 package fr.ensibs.bakery.impl;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import fr.ensibs.bakery.model.User;
 import fr.ensibs.bakery.model.UserDAO;
 import fr.ensibs.bakery.service.UsersService;
 
-import static fr.ensibs.bakery.impl.Constants.JWT_ISSUER;
-import static fr.ensibs.bakery.impl.Constants.JWT_SECRET;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.jws.WebService;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  * A web service that manages users and permissions.
@@ -46,17 +41,7 @@ public class UsersServiceImpl implements UsersService {
         if (BCrypt.checkpw(password, user.getPasswordHash()))
             return null;
 
-        Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
-        // the token expires one hour after the issue
-        long expiresAt = System.currentTimeMillis() + 3600 * 1000;
-        String token = JWT.create()
-                .withIssuer(JWT_ISSUER)
-                .withSubject(user.getName())
-                .withIssuedAt(new Date())
-                .withExpiresAt(new Date(expiresAt))
-                .sign(algorithm);
-
-        return token;
+        return Auth.sign(user.getName());
     }
 
     @Override
@@ -76,17 +61,7 @@ public class UsersServiceImpl implements UsersService {
         if (user == null)
             return null;
 
-        Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
-        // the token expires one hour after the issue
-        long expiresAt = System.currentTimeMillis() + 3600 * 1000;
-        String token = JWT.create()
-                .withIssuer(JWT_ISSUER)
-                .withSubject(user.getName())
-                .withIssuedAt(new Date())
-                .withExpiresAt(new Date(expiresAt))
-                .sign(algorithm);
-
-        return token;
+        return Auth.sign(user.getName());
     }
 
 }

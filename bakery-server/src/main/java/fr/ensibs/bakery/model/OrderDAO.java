@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * A data access object to manage orders.
  */
 public class OrderDAO {
+
 	/**
      * the single instance
      */
@@ -42,9 +44,8 @@ public class OrderDAO {
      * @return the corresponding order
      */
     public Order getOrder(int id) {
-
         try {
-            String sql = "SELECT * FROM Order WHERE id = ?";
+            String sql = "SELECT * FROM `Order` WHERE id = ?";
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();
@@ -52,26 +53,59 @@ public class OrderDAO {
             // if no order was found
             if (!result.next())
                 return null;
-            
-            String name = result.getString("name");
-            int productId = result.getInt("productId");
+
+            int productId = result.getInt("product_id");
+            int userId = result.getInt("user_id");
             int quantity = result.getInt("quantity");
-            int price = result.getInt("price");
-            return new Order(id, name, productId, quantity, price);
+            return new Order(id, productId, userId, quantity);
         } catch (SQLException e) {
             return null;
         }
     }
 
-    public void createOrder(String name, int productId, int quantity, int price) {
+    /**
+     * Query all the orders belonging to the given user in the database.
+     * @param userId the id of the user
+     * @return the list of orders
+     */
+    public ArrayList<Order> getAllOrders(int userId) {
         try {
-            String sql = "INSERT INTO Order (name, productId, quantity, price) VALUES (?, ?, ?, ?)";
+            ArrayList<Order> orders = new ArrayList<>();
+
+            String sql = "SELECT * FROM `Order` WHERE user_id = ?";
             PreparedStatement stmt = this.connection.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setInt(2, productId);
+            stmt.setInt(1, userId);
+            ResultSet result = stmt.executeQuery();
+
+            // for each order
+            while (result.next()) {
+                int id = result.getInt("id");
+                int productId = result.getInt("product_id");
+                int quantity = result.getInt("quantity");
+                orders.add(new Order(id, productId, userId, quantity));
+            }
+
+            return orders;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Create a new order.
+     * @param productId the id of the associated product
+     * @param userId the id of the associated user
+     * @param quantity the quantity of the same product to order
+     */
+    public void createOrder(int productId, int userId, int quantity) {
+        try {
+            String sql = "INSERT INTO `Order` (product_id, user_id, quantity) VALUES (?, ?, ?)";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            stmt.setInt(2, userId);
             stmt.setInt(3, quantity);
-            stmt.setInt(4, price);
             stmt.executeUpdate();
         } catch (SQLException e) { }
     }
+
 }

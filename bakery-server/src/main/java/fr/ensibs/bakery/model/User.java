@@ -26,13 +26,13 @@ public class User {
     private Role role;
 
     /**
-     * Constructor.
+     * Package-only constructor.
      * @param id the id of the user
      * @param name the name of the user
      * @param passwordHash the password hash of the user
      * @param role the role of the user (customer/admin)
      */
-    public User(int id, String name, String passwordHash, Role role) {
+    User(int id, String name, String passwordHash, Role role) {
         this.id = id;
         this.name = name;
         this.passwordHash = passwordHash;
