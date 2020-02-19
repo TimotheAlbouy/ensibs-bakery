@@ -23,18 +23,19 @@ public class BakeryServicesPublisher {
         try {
             String host = args[0];
             int port = Integer.parseInt(args[1]);
-            if (port < 0)
+            if (port < 0 || port > 65535)
                 throw new NumberFormatException();
 
             String usersAddress = "http://" + host + ":" + port + "/ws/" + USERS_SERVICE;
             Endpoint.publish(usersAddress, new UsersServiceImpl());
-            System.out.println("Web service 1 published and running at: " + usersAddress);
+            System.out.println("[UsersService]: WSDL published and web service running at: " + usersAddress);
 
             // TODO: 2 other services
         } catch (NumberFormatException e) {
-            System.out.println("The port number must be an integer comprised between 0 and 65535.");
-        } catch (SQLException e) {
-            System.out.println("An error occurred while retrieving the database connection.");
+            System.out.println("The port number must be an integer between 0 and 65535.");
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("An error occurred while retrieving the database connection: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

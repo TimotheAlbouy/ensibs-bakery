@@ -9,7 +9,7 @@
     <artifactId>bakery-client</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
-    <name>Bakery application</name>
+    <name>Bakery application client</name>
     <description>A distributed application that manages users, orders and payments of a bakery</description>
   
     <!-- Project properties -->

@@ -30,13 +30,13 @@ public class UsersServiceImpl implements UsersService {
     /**
      * Constructor.
      */
-    public UsersServiceImpl() throws SQLException {
+    public UsersServiceImpl() throws SQLException, ClassNotFoundException {
         this.userDAO = UserDAO.getInstance();
     }
     
     @Override
     public String login(String name, String password) {
-        User user = this.userDAO.getUser(name);
+        User user = this.userDAO.getUserByName(name);
 
         // if the user with the given name does not exist
         if (user == null)
@@ -61,7 +61,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public String register(String name, String password) {
-        User existingUser = this.userDAO.getUser(name);
+        User existingUser = this.userDAO.getUserByName(name);
 
         // if the user with the given name already exists
         if (existingUser != null)
@@ -70,7 +70,7 @@ public class UsersServiceImpl implements UsersService {
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
 
         this.userDAO.createUser(name, passwordHash);
-        User user = this.userDAO.getUser(name);
+        User user = this.userDAO.getUserByName(name);
 
         // if an error occurred during the user's creation
         if (user == null)

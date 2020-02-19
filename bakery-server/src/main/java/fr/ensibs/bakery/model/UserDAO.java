@@ -23,7 +23,7 @@ public class UserDAO {
     /**
      * Private constructor for the singleton pattern.
      */
-    private UserDAO() throws SQLException {
+    private UserDAO() throws SQLException, ClassNotFoundException {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
     
@@ -31,7 +31,7 @@ public class UserDAO {
      * Instance getter for the singleton pattern.
      * @return the single instance
      */
-    public static UserDAO getInstance() throws SQLException {
+    public static UserDAO getInstance() throws SQLException, ClassNotFoundException {
         if (UserDAO.instance == null)
             UserDAO.instance = new UserDAO();
         return UserDAO.instance;
@@ -42,7 +42,7 @@ public class UserDAO {
      * @param name the name of the user
      * @return the corresponding user
      */
-    public User getUser(String name) {
+    public User getUserByName(String name) {
 
         try {
             String sql = "SELECT * FROM User WHERE name = ?";
@@ -63,9 +63,14 @@ public class UserDAO {
         }
     }
 
+    /**
+     * Create a new user in the database
+     * @param name
+     * @param passwordHash
+     */
     public void createUser(String name, String passwordHash) {
         try {
-            String sql = "INSERT INTO User (name, password_hash, role) VALUES (?, ?, 'CUSTOMER')";
+            String sql = "INSERT INTO User (name, password_hash) VALUES (?, ?)";
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setString(2, passwordHash);
