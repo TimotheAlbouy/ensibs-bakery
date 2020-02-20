@@ -40,7 +40,7 @@ public class UsersServiceImpl implements UsersService {
             throw new BakeryServiceException(404);
 
         // if the given password is incorrect
-        if (BCrypt.checkpw(password, user.getPasswordHash()))
+        if (!BCrypt.checkpw(password, user.getPasswordHash()))
             throw new BakeryServiceException(401);
 
         return Auth.sign(user.getName(), user.getRole() == Role.ADMIN);
