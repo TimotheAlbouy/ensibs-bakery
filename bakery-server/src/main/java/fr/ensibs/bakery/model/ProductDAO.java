@@ -1,5 +1,7 @@
 package fr.ensibs.bakery.model;
 
+import fr.ensibs.bakery.impl.BakeryServiceException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,11 +41,11 @@ public class ProductDAO {
     }
 
     /**
-     * Query a product in the database from its id.
+     * Query a product in the database.
      * @param id the id of the product
      * @return the corresponding product
      */
-    public Product getProduct(int id) {
+    public Product getProduct(int id) throws BakeryServiceException {
         try {
             String sql = "SELECT * FROM `Product` WHERE id = ?";
             PreparedStatement stmt = this.connection.prepareStatement(sql);
@@ -58,15 +60,15 @@ public class ProductDAO {
             int price = result.getInt("price");
             return new Product(id, name, price);
         } catch (SQLException e) {
-            return null;
+            throw new BakeryServiceException(500);
         }
     }
 
     /**
-     * Query all the products of the database.
+     * Query all the products in the database.
      * @return the list of all the products
      */
-    public ArrayList<Product> getAllProducts() {
+    public ArrayList<Product> getAllProducts() throws BakeryServiceException {
         try {
             ArrayList<Product> products = new ArrayList<>();
 
@@ -83,18 +85,26 @@ public class ProductDAO {
 
             return products;
         } catch (SQLException e) {
-            return null;
+            throw new BakeryServiceException(500);
         }
     }
 
-    public void createProduct(String name, int price) {
+    /**
+     * Create a new product in the database
+     * @param name the name of the product
+     * @param price the price of the product
+     * @throws BakeryServiceException
+     */
+    public void createProduct(String name, int price) throws BakeryServiceException {
         try {
             String sql = "INSERT INTO `Product` (name, price) VALUES (?, ?)";
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setString(1, name);
             stmt.setInt(2, price);
             stmt.executeUpdate();
-        } catch (SQLException e) { }
+        } catch (SQLException e) {
+            throw new BakeryServiceException(500);
+        }
     }
 
 }

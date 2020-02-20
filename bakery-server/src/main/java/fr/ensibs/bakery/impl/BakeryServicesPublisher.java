@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import static fr.ensibs.bakery.impl.Constants.USERS_SERVICE;
 import static fr.ensibs.bakery.impl.Constants.ORDERS_SERVICE;
+import static fr.ensibs.bakery.impl.Constants.PAYMENTS_SERVICE;
 
 /**
  * The launcher of the 3 web services of the bakery.
@@ -29,16 +30,18 @@ public class BakeryServicesPublisher {
 
             String usersAddress = "http://" + host + ":" + port + "/ws/" + USERS_SERVICE;
             Endpoint.publish(usersAddress, new UsersServiceImpl());
-            System.out.println("[UsersService]: WSDL published and web service running at: " + usersAddress);
+            System.out.println("[" + USERS_SERVICE + "]: WSDL published and web service running at: " + usersAddress);
 
             String ordersAddress = "http://" + host + ":" + port + "/ws/" + ORDERS_SERVICE;
             Endpoint.publish(ordersAddress, new OrdersServiceImpl());
-            System.out.println("[OrdersService]: WSDL published and web service running at: " + ordersAddress);
+            System.out.println("[" + ORDERS_SERVICE + "]: WSDL published and web service running at: " + ordersAddress);
 
-            // TODO: 1 other services
+            String paymentsAddress = "http://" + host + ":" + port + "/ws/" + PAYMENTS_SERVICE;
+            Endpoint.publish(paymentsAddress, new PaymentsServiceImpl());
+            System.out.println("[" + PAYMENTS_SERVICE + "]: WSDL published and web service running at: " + paymentsAddress);
         } catch (NumberFormatException e) {
             System.out.println("The port number must be an integer between 0 and 65535.");
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             System.out.println("An error occurred while retrieving the database connection: " + e.getMessage());
             e.printStackTrace();
         }

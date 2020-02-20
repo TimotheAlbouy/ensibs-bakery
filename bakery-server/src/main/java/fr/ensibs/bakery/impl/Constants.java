@@ -3,7 +3,7 @@ package fr.ensibs.bakery.impl;
 /**
  * Class containing constant values of the application.
  */
-public class Constants {
+public final class Constants {
 
     /**
      * the users web service name
@@ -14,6 +14,11 @@ public class Constants {
      * the orders web service name
      */
     public final static String ORDERS_SERVICE = "OrdersService";
+
+    /**
+     * the orders web service name
+     */
+    public final static String PAYMENTS_SERVICE = "PaymentsService";
 
     /**
      * the database URL

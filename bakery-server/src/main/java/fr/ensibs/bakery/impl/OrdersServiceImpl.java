@@ -3,7 +3,6 @@ package fr.ensibs.bakery.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.auth0.jwt.JWT;
 import fr.ensibs.bakery.model.*;
 import fr.ensibs.bakery.service.OrdersService;
 
@@ -28,41 +27,51 @@ public class OrdersServiceImpl implements OrdersService {
     private ProductDAO productDAO;
 
     /**
+     * the DAO to handle users in the database
+     */
+    private UserDAO userDAO;
+
+    /**
      * Constructor.
      */
-    public OrdersServiceImpl() throws SQLException, ClassNotFoundException {
+    public OrdersServiceImpl() throws SQLException {
         this.orderDAO = OrderDAO.getInstance();
         this.productDAO = ProductDAO.getInstance();
+        this.userDAO = UserDAO.getInstance();
     }
 
     @Override
-    public void addOrder(String token, int id, int quantity) {
+    public void addOrder(String token, int productId, int quantity) throws BakeryServiceException {
         // verify the token
-		User user = Auth.verify(token);
-		if (user == null)
-		    return;
+        String name = Auth.verify(token, false);
+        if (name == null)
+            throw new BakeryServiceException(401);
 
-        Product product = this.productDAO.getProduct(id);
+        // check that the user exists
+		User user = this.userDAO.getUserByName(name);
+		if (user == null)
+		    throw new BakeryServiceException(401);
+
+        Product product = this.productDAO.getProduct(productId);
 
 		// if the user with the given id does not exist
 		if (product == null)
-			return;
+			throw new BakeryServiceException(404);
 
 		this.orderDAO.createOrder(product.getId(), user.getId(), quantity);
     }
 
     @Override
-    public ArrayList<Order> getAllOrders(String token) {
-        // verify the token
-        User user = Auth.verify(token);
+    public ArrayList<Order> getOrdersByUser(String name) throws BakeryServiceException {
+        User user = this.userDAO.getUserByName(name);
         if (user == null)
-            return null;
+            throw new BakeryServiceException(404);
 
         return this.orderDAO.getAllOrders(user.getId());
     }
 
     @Override
-    public ArrayList<String> getAllProducts() {
+    public ArrayList<Product> getAllProducts() throws BakeryServiceException {
         return this.productDAO.getAllProducts();
     }
 

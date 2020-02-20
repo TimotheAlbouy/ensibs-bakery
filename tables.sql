@@ -1,24 +1,24 @@
-DROP TABLE IF EXISTS order;
-DROP TABLE IF EXISTS product;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS `Order`;
+DROP TABLE IF EXISTS `Product`;
+DROP TABLE IF EXISTS `User`;
 
-CREATE TABLE `user` (
+CREATE TABLE `User` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    role TEXT NOT NULL DEFAULT 'CUSTOMER',
-    CHECK (role = 'ADMIN' OR role = 'CUSTOMER')
+    role TEXT NOT NULL DEFAULT 'CUSTOMER' CHECK (role = 'ADMIN' OR role = 'CUSTOMER')
 );
 
-CREATE TABLE `product` (
+CREATE TABLE `Product` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE `order` (
+CREATE TABLE `Order` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    quantity INTEGER NOT NULL,
-    product_id INTEGER REFERENCES product(id),
-    user_id INTEGER,
-    CHECK (quantity > 0)
+    quantity INTEGER NOT NULL CHECK (quantity > 0),
+    product_id INTEGER  NOT NULL REFERENCES product(id),
+    user_id INTEGER NOT NULL,
+    is_paid BOOLEAN NOT NULL DEFAULT 1 CHECK (is_paid IN (0, 1))
 );
+

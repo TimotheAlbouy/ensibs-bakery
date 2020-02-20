@@ -24,6 +24,11 @@ public class Order {
 	 * the quantity of the same product the user ordered
 	 */
 	private int quantity;
+
+	/**
+	 * whether the order is paid or not
+	 */
+	private boolean isPaid;
 	
 	/**
 	 * Package-only constructor.
@@ -31,12 +36,14 @@ public class Order {
 	 * @param productId the id of the associated product
 	 * @param userId the id of the associated user
 	 * @param quantity the quantity of the same product to order
+	 * @param isPaid whether the order is paid or not
 	 */
-	Order(int id, int productId, int userId, int quantity) {
+	Order(int id, int productId, int userId, int quantity, boolean isPaid) {
 		this.id = id;
 		this.productId = productId;
 		this.userId = userId;
 		this.quantity = quantity;
+		this.isPaid = isPaid;
 	}
 
 	/**
@@ -69,6 +76,14 @@ public class Order {
 	 */
 	public int getQuantity() {
 		return quantity;
+	}
+
+	/**
+	 * Tell if the order is paid or not.
+	 * @return true iff the order is paid
+	 */
+	public boolean isPaid() {
+		return isPaid;
 	}
 
 }
