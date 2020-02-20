@@ -2,6 +2,8 @@ package fr.ensibs.bakery.service;
 
 import fr.ensibs.bakery.impl.BakeryServiceException;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 
 /**
@@ -15,12 +17,16 @@ public interface PaymentsService {
      * @param token the token of the user
      * @return the invoice
      */
-    int getInvoice(String token) throws BakeryServiceException;
+    @WebMethod(operationName = "getInvoice")
+    int getInvoice(@WebParam(name = "token") String token)
+            throws BakeryServiceException;
 
     /**
      * Pay the invoice that the user has to pay.
      * @param token the token of the user
      */
-    void payInvoice(String token) throws BakeryServiceException;
+    @WebMethod(operationName = "payInvoice")
+    void payInvoice(@WebParam(name = "token") String token)
+            throws BakeryServiceException;
 
 }
