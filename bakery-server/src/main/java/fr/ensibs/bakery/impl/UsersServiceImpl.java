@@ -43,11 +43,15 @@ public class UsersServiceImpl implements UsersService {
         if (!BCrypt.checkpw(password, user.getPasswordHash()))
             throw new BakeryServiceException(401);
 
-        return Auth.sign(user.getName(), user.getRole() == Role.ADMIN);
+        return Auth.sign(name, user.getRole() == Role.ADMIN);
     }
 
     @Override
     public String register(String name, String password) throws BakeryServiceException {
+        // check the validity of the parameters
+        if (name == null || password == null || name.length() < 3 || password.length() < 3)
+            throw new BakeryServiceException(400);
+
         User existingUser = this.userDAO.getUserByName(name);
 
         // if the user with the given name already exists
@@ -56,8 +60,7 @@ public class UsersServiceImpl implements UsersService {
 
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
         this.userDAO.createUser(name, passwordHash);
-        User user = this.userDAO.getUserByName(name);
-        return Auth.sign(user.getName(), user.getRole() == Role.ADMIN);
+        return Auth.sign(name, false);
     }
 
     @Override

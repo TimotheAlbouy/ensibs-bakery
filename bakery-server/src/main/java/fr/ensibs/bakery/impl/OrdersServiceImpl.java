@@ -42,6 +42,10 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void addOrder(String token, int productId, int quantity) throws BakeryServiceException {
+        // check the validity of the parameters
+        if (quantity <= 0)
+            throw new BakeryServiceException(400);
+
         // verify the token
         String name = Auth.verify(token, false);
         if (name == null)
@@ -52,9 +56,8 @@ public class OrdersServiceImpl implements OrdersService {
 		if (user == null)
 		    throw new BakeryServiceException(401);
 
+		// check that the product exists
         Product product = this.productDAO.getProduct(productId);
-
-		// if the user with the given id does not exist
 		if (product == null)
 			throw new BakeryServiceException(404);
 
