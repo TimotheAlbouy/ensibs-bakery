@@ -137,7 +137,7 @@ public class OrderDAO {
             stmt.setInt(2, price);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new BakeryServiceException(500);
+            throw new BakeryServiceException(500, e.getMessage());
         }
     }
 

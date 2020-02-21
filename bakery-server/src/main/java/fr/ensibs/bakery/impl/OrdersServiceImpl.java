@@ -92,6 +92,11 @@ public class OrdersServiceImpl implements OrdersService {
         if (user.getRole() != Role.ADMIN)
             throw new BakeryServiceException(403);
 
+        // check that the product does not already exist
+        Product product = this.productDAO.getProductByName(name);
+        if (product != null)
+            throw new BakeryServiceException(409);
+
         this.orderDAO.createProduct(name, price);
     }
 

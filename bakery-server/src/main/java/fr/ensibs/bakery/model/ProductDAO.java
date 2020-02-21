@@ -65,6 +65,30 @@ public class ProductDAO {
     }
 
     /**
+     * Query a product in the database.
+     * @param name the name of the product
+     * @return the corresponding product
+     */
+    public Product getProductByName(String name) throws BakeryServiceException {
+        try {
+            String sql = "SELECT * FROM `Product` WHERE name = ?";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setString(1, name);
+            ResultSet result = stmt.executeQuery();
+
+            // if no product was found
+            if (!result.next())
+                return null;
+
+            int id = result.getInt("id");
+            int price = result.getInt("price");
+            return new Product(id, name, price);
+        } catch (SQLException e) {
+            throw new BakeryServiceException(500);
+        }
+    }
+
+    /**
      * Query all the products in the database.
      * @return the list of all the products
      */

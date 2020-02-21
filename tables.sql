@@ -12,7 +12,8 @@ CREATE TABLE `User` (
 
 CREATE TABLE `Product` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE NOT NULL
+    name TEXT UNIQUE NOT NULL,
+    price REAL NOT NULL CHECK (price > 0)
 );
 
 CREATE TABLE `Order` (

@@ -1,8 +1,12 @@
 package fr.ensibs.bakery.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * An order of an user.
  */
+@XmlRootElement(name = "Order")
 public class Order {
 	
 	/**
@@ -29,6 +33,11 @@ public class Order {
 	 * whether the order is paid or not
 	 */
 	private boolean isPaid;
+
+    /**
+     * No-argument constructor.
+     */
+    Order() { }
 	
 	/**
 	 * Package-only constructor.
@@ -50,6 +59,7 @@ public class Order {
 	 * Get the id of the order.
 	 * @return the id of the order
 	 */
+	@XmlElement(name = "getId")
 	public int getId() {
 		return id;
 	}
@@ -58,6 +68,7 @@ public class Order {
 	 * Get the id of the associated product.
 	 * @return the id of the associated product
 	 */
+    @XmlElement(name = "getProductId")
 	public int getProductId() {
 		return productId;
 	}
@@ -66,6 +77,7 @@ public class Order {
 	 * Get the id of the associated user.
 	 * @return the id of the associated user
 	 */
+    @XmlElement(name = "getUserId")
 	public int getUserId() {
 		return userId;
 	}
@@ -74,6 +86,7 @@ public class Order {
 	 * Get the quantity of the order.
 	 * @return the quantity of the order
 	 */
+    @XmlElement(name = "getQuantity")
 	public int getQuantity() {
 		return quantity;
 	}
@@ -82,6 +95,7 @@ public class Order {
 	 * Tell if the order is paid or not.
 	 * @return true iff the order is paid
 	 */
+    @XmlElement(name = "isPaid")
 	public boolean isPaid() {
 		return isPaid;
 	}

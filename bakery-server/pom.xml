@@ -38,19 +38,12 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- make an executable jar with classpath to the lib/ dependencies -->
+            <!-- create a war with classpath to the lib/ dependencies -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>fr.ensibs.bakery.impl.BakeryServicesPublisher</mainClass>
-                        </manifest>
-                    </archive>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
