@@ -1,8 +1,12 @@
 package fr.ensibs.bakery.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * A product of the bakery.
  */
+@XmlRootElement(name = "Product")
 public class Product {
 
     /**
@@ -21,6 +25,11 @@ public class Product {
     private int price;
 
     /**
+     * No-argument constructor.
+     */
+    Product() { }
+
+    /**
      * Package-only constructor.
      * @param id the id of the product
      * @param name the name of the product
@@ -36,6 +45,7 @@ public class Product {
      * Get the id of the product.
      * @return the id of the product
      */
+    @XmlElement(name = "getId")
     public int getId() {
         return id;
     }
@@ -44,6 +54,7 @@ public class Product {
      * Get the name of the product.
      * @return the name of the product
      */
+    @XmlElement(name = "getName")
     public String getName() {
         return name;
     }
@@ -52,6 +63,7 @@ public class Product {
      * Get the price of the product.
      * @return the price of the product
      */
+    @XmlElement(name = "getPrice")
     public int getPrice() {
         return price;
     }

@@ -6,12 +6,14 @@ CREATE TABLE `User` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    role TEXT NOT NULL DEFAULT 'CUSTOMER' CHECK (role = 'ADMIN' OR role = 'CUSTOMER')
+    role TEXT NOT NULL DEFAULT 'CUSTOMER' CHECK (role = 'ADMIN' OR role = 'CUSTOMER'),
+    token TEXT UNIQUE DEFAULT NULL
 );
 
 CREATE TABLE `Product` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE NOT NULL
+    name TEXT UNIQUE NOT NULL,
+    price REAL NOT NULL CHECK (price > 0)
 );
 
 CREATE TABLE `Order` (
@@ -21,4 +23,3 @@ CREATE TABLE `Order` (
     user_id INTEGER NOT NULL,
     is_paid BOOLEAN NOT NULL DEFAULT 1 CHECK (is_paid IN (0, 1))
 );
-

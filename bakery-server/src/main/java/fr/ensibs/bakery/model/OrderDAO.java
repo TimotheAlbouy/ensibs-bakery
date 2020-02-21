@@ -41,37 +41,11 @@ public class OrderDAO {
     }
 
     /**
-     * Query a order in the database.
-     * @param id the id of the order
-     * @return the corresponding order
-     */
-    public Order getOrder(int id) throws BakeryServiceException {
-        try {
-            String sql = "SELECT * FROM `Order` WHERE id = ?";
-            PreparedStatement stmt = this.connection.prepareStatement(sql);
-            stmt.setInt(1, id);
-            ResultSet result = stmt.executeQuery();
-
-            // if no order was found
-            if (!result.next())
-                return null;
-
-            int productId = result.getInt("product_id");
-            int userId = result.getInt("user_id");
-            int quantity = result.getInt("quantity");
-            boolean isPaid = result.getBoolean("is_paid");
-            return new Order(id, productId, userId, quantity, isPaid);
-        } catch (SQLException e) {
-            throw new BakeryServiceException(500);
-        }
-    }
-
-    /**
      * Query all the orders belonging to the given user in the database.
      * @param userId the id of the user
      * @return the list of orders
      */
-    public ArrayList<Order> getAllOrders(int userId) throws BakeryServiceException {
+    public ArrayList<Order> getOrdersByUser(int userId) throws BakeryServiceException {
         try {
             ArrayList<Order> orders = new ArrayList<>();
 
@@ -147,6 +121,23 @@ public class OrderDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new BakeryServiceException(500);
+        }
+    }
+
+    /**
+     * Create a new product in the database.
+     * @param name the name of the product
+     * @param price the price of the product
+     */
+    public void createProduct(String name, int price) throws BakeryServiceException {
+        try {
+            String sql = "INSERT INTO `Product` (name, price) VALUES (?, ?)";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setInt(2, price);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new BakeryServiceException(500, e.getMessage());
         }
     }
 

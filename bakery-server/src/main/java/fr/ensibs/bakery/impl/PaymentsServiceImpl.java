@@ -1,8 +1,6 @@
 package fr.ensibs.bakery.impl;
 
-import fr.ensibs.bakery.model.OrderDAO;
-import fr.ensibs.bakery.model.ProductDAO;
-import fr.ensibs.bakery.model.UserDAO;
+import fr.ensibs.bakery.model.*;
 import fr.ensibs.bakery.service.PaymentsService;
 
 import javax.jws.WebService;
@@ -42,23 +40,31 @@ public class PaymentsServiceImpl implements PaymentsService {
     }
 
     @Override
-    public int getInvoice(String token) throws BakeryServiceException {
-        // verify the token
-        String name = Auth.verify(token, false);
-        if (name == null)
+    public int getInvoice(String customerToken) throws BakeryServiceException {
+        // check that the user exists
+        User user = this.userDAO.getUserByToken(customerToken);
+        if (user == null)
             throw new BakeryServiceException(401);
 
-        return this.orderDAO.getInvoiceByName(name);
+        // check that the user is customer
+        if (user.getRole() != Role.CUSTOMER)
+            throw new BakeryServiceException(403);
+
+        return this.orderDAO.getInvoiceByName(user.getName());
     }
 
     @Override
-    public void payInvoice(String token) throws BakeryServiceException {
-        // verify the token
-        String name = Auth.verify(token, false);
-        if (name == null)
+    public void payInvoice(String customerToken) throws BakeryServiceException {
+        // check that the user exists
+        User user = this.userDAO.getUserByToken(customerToken);
+        if (user == null)
             throw new BakeryServiceException(401);
 
-        this.orderDAO.payInvoiceByName(name);
+        // check that the user is customer
+        if (user.getRole() != Role.CUSTOMER)
+            throw new BakeryServiceException(403);
+
+        this.orderDAO.payInvoiceByName(user.getName());
     }
 
 }

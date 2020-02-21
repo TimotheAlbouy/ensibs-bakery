@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public interface UsersService {
 
     /**
-     * Get an user according to their name.
+     * Log the user in.
      * @param name the name of the user
      * @param password the password of the user
      * @return the generated JWT
@@ -23,6 +23,15 @@ public interface UsersService {
     @WebMethod(operationName = "login")
     String login(@WebParam(name = "name") String name,
                  @WebParam(name = "password") String password)
+            throws BakeryServiceException;
+
+    /**
+     * Log the user out.
+     * @param token the token of the user
+     * @throws BakeryServiceException
+     */
+    @WebMethod(operationName = "logout")
+    void logout(@WebParam(name = "token") String token)
             throws BakeryServiceException;
 
     /**
@@ -44,5 +53,29 @@ public interface UsersService {
     @WebMethod(operationName = "getAllUsers")
     ArrayList<User> getAllUsers(@WebParam(name = "token") String token)
             throws BakeryServiceException;
-    
+
+    /**
+     * Set the administrator rights of an user.
+     * @param adminToken the admin token
+     * @param name the name of the user
+     * @param isAdmin whether the user must have admin rights or not
+     * @throws BakeryServiceException
+     */
+    @WebMethod(operationName = "setAdmin")
+    void setAdmin(@WebParam(name = "adminToken") String adminToken,
+                         @WebParam(name = "name") String name,
+                         @WebParam(name = "isAdmin") boolean isAdmin)
+            throws BakeryServiceException;
+
+    /**
+     * Delete an user.
+     * @param adminToken the admin token
+     * @param name the name of the user
+     * @throws BakeryServiceException
+     */
+    @WebMethod(operationName = "deleteUser")
+    void deleteUser(@WebParam(name = "adminToken") String adminToken,
+                           @WebParam(name = "name") String name)
+            throws BakeryServiceException;
+
 }

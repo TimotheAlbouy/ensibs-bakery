@@ -41,20 +41,19 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void addOrder(String token, int productId, int quantity) throws BakeryServiceException {
+    public void addOrder(String customerToken, int productId, int quantity) throws BakeryServiceException {
         // check the validity of the parameters
         if (quantity <= 0)
             throw new BakeryServiceException(400);
 
-        // verify the token
-        String name = Auth.verify(token, false);
-        if (name == null)
+        // check that the user exists
+        User user = this.userDAO.getUserByToken(customerToken);
+        if (user == null)
             throw new BakeryServiceException(401);
 
-        // check that the user exists
-		User user = this.userDAO.getUserByName(name);
-		if (user == null)
-		    throw new BakeryServiceException(401);
+        // check that the user is customer
+        if (user.getRole() != Role.CUSTOMER)
+            throw new BakeryServiceException(403);
 
 		// check that the product exists
         Product product = this.productDAO.getProduct(productId);
@@ -70,12 +69,35 @@ public class OrdersServiceImpl implements OrdersService {
         if (user == null)
             throw new BakeryServiceException(404);
 
-        return this.orderDAO.getAllOrders(user.getId());
+        return this.orderDAO.getOrdersByUser(user.getId());
     }
 
     @Override
     public ArrayList<Product> getAllProducts() throws BakeryServiceException {
         return this.productDAO.getAllProducts();
+    }
+
+    @Override
+    public void addProduct(String adminToken, String name, int price) throws BakeryServiceException {
+        // check the validity of the parameters
+        if (name == null || price <= 0)
+            throw new BakeryServiceException(400);
+
+        // check that the user exists
+        User user = this.userDAO.getUserByToken(adminToken);
+        if (user == null)
+            throw new BakeryServiceException(401);
+
+        // check that the user is admin
+        if (user.getRole() != Role.ADMIN)
+            throw new BakeryServiceException(403);
+
+        // check that the product does not already exist
+        Product product = this.productDAO.getProductByName(name);
+        if (product != null)
+            throw new BakeryServiceException(409);
+
+        this.orderDAO.createProduct(name, price);
     }
 
 }

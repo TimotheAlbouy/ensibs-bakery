@@ -6,10 +6,10 @@
     <!-- Project description -->
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.ensibs</groupId>
-    <artifactId>bakery-server</artifactId>
+    <artifactId>bakery-client</artifactId>
     <version>1</version>
-    <packaging>war</packaging>
-    <name>Bakery application server</name>
+    <packaging>jar</packaging>
+    <name>Bakery application</name>
     <description>A distributed application that manages users, orders and payments of a bakery</description>
   
     <!-- Project properties -->
@@ -23,47 +23,47 @@
 
     <build>
         <plugins>
-            <!-- copy the dependencies to the lib/ directory -->
             <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>fr.ensibs.bakery.client.BakeryApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.3.3-b01</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>wsimport</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <packageName>fr.ensibs.bakery.service</packageName>
+                            <keep>true</keep>
+                            <wsdlUrls>
+                                <wsdlUrl>http://localhost:5000/ws/UsersService?wsdl</wsdlUrl>
+                                <!--wsdlUrl>http://localhost:5000/ws/UsersService?wsdl</wsdlUrl>
+                                <wsdlUrl>http://localhost:5000/ws/UsersService?wsdl</wsdlUrl-->
+                            </wsdlUrls>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- create a war with classpath to the lib/ dependencies -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>2.3.3-b01</version>
-        </dependency>
-        <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.15.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.3m</version>
         </dependency>
     </dependencies>
   
