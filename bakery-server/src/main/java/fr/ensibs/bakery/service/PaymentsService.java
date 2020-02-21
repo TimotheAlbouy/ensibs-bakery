@@ -13,20 +13,22 @@ import javax.jws.WebService;
 public interface PaymentsService {
 
     /**
-     * Get the invoice that the user has to pay.
-     * @param token the token of the user
+     * Get the invoice that the customer has to pay.
+     * @param customerToken the token of the customer
      * @return the invoice
+     * @throws BakeryServiceException
      */
     @WebMethod(operationName = "getInvoice")
-    int getInvoice(@WebParam(name = "token") String token)
+    int getInvoice(@WebParam(name = "customerToken") String customerToken)
             throws BakeryServiceException;
 
     /**
-     * Pay the invoice that the user has to pay.
-     * @param token the token of the user
+     * Pay the invoice that the customer has to pay.
+     * @param customerToken the token of the customer
+     * @throws BakeryServiceException
      */
     @WebMethod(operationName = "payInvoice")
-    void payInvoice(@WebParam(name = "token") String token)
+    void payInvoice(@WebParam(name = "customerToken") String customerToken)
             throws BakeryServiceException;
 
 }

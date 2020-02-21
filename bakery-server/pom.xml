@@ -8,7 +8,7 @@
     <groupId>fr.ensibs</groupId>
     <artifactId>bakery-server</artifactId>
     <version>1</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Bakery application server</name>
     <description>A distributed application that manages users, orders and payments of a bakery</description>
   
@@ -61,11 +61,6 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>2.3.3-b01</version>
-        </dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.xerial</groupId>

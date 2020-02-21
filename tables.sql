@@ -6,7 +6,8 @@ CREATE TABLE `User` (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    role TEXT NOT NULL DEFAULT 'CUSTOMER' CHECK (role = 'ADMIN' OR role = 'CUSTOMER')
+    role TEXT NOT NULL DEFAULT 'CUSTOMER' CHECK (role = 'ADMIN' OR role = 'CUSTOMER'),
+    token TEXT UNIQUE
 );
 
 CREATE TABLE `Product` (

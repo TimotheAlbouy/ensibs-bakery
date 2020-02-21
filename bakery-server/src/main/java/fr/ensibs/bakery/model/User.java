@@ -26,17 +26,24 @@ public class User {
     private Role role;
 
     /**
+     * the token of the user
+     */
+    private String token;
+
+    /**
      * Package-only constructor.
      * @param id the id of the user
      * @param name the name of the user
      * @param passwordHash the password hash of the user
      * @param role the role of the user (customer/admin)
+     * @param token the token of the user
      */
-    User(int id, String name, String passwordHash, Role role) {
+    User(int id, String name, String passwordHash, Role role, String token) {
         this.id = id;
         this.name = name;
         this.passwordHash = passwordHash;
         this.role = role;
+        this.token = token;
     }
 
     /**
@@ -69,6 +76,14 @@ public class User {
      */
     public Role getRole() {
         return role;
+    }
+
+    /**
+     * Get the token of the user.
+     * @return the token of the user
+     */
+    public String getToken() {
+        return token;
     }
 
 }
