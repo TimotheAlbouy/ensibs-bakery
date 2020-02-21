@@ -19,6 +19,7 @@ public interface UsersService {
      * @param name the name of the user
      * @param password the password of the user
      * @return the generated JWT
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "login")
     String login(@WebParam(name = "name") String name,
@@ -28,7 +29,7 @@ public interface UsersService {
     /**
      * Log the user out.
      * @param token the token of the user
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "logout")
     void logout(@WebParam(name = "token") String token)
@@ -39,6 +40,7 @@ public interface UsersService {
      * @param name the name of the user
      * @param password the password of the user
      * @return the generated JWT
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "register")
     String register(@WebParam(name = "name") String name,
@@ -49,6 +51,7 @@ public interface UsersService {
      * Get the list containing all the users.
      * @param token an admin token
      * @return the list of all the users
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "getAllUsers")
     ArrayList<User> getAllUsers(@WebParam(name = "token") String token)
@@ -59,7 +62,7 @@ public interface UsersService {
      * @param adminToken the admin token
      * @param name the name of the user
      * @param isAdmin whether the user must have admin rights or not
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "setAdmin")
     void setAdmin(@WebParam(name = "adminToken") String adminToken,
@@ -71,7 +74,7 @@ public interface UsersService {
      * Delete an user.
      * @param adminToken the admin token
      * @param name the name of the user
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "deleteUser")
     void deleteUser(@WebParam(name = "adminToken") String adminToken,

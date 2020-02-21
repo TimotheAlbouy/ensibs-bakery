@@ -16,7 +16,7 @@ public interface PaymentsService {
      * Get the invoice that the customer has to pay.
      * @param customerToken the token of the customer
      * @return the invoice
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "getInvoice")
     int getInvoice(@WebParam(name = "customerToken") String customerToken)
@@ -25,7 +25,7 @@ public interface PaymentsService {
     /**
      * Pay the invoice that the customer has to pay.
      * @param customerToken the token of the customer
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "payInvoice")
     void payInvoice(@WebParam(name = "customerToken") String customerToken)

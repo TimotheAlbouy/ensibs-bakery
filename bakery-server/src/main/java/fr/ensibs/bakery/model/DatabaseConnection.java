@@ -23,6 +23,7 @@ public class DatabaseConnection {
 
     /**
      * Private constructor for the singleton pattern.
+     * @throws SQLException when an error occurs
      */
     private DatabaseConnection() throws SQLException {
         this.connection = DriverManager.getConnection(DB_URL);
@@ -32,6 +33,7 @@ public class DatabaseConnection {
     /**
      * Instance getter for the singleton pattern.
      * @return the single instance
+     * @throws SQLException when an error occurs
      */
     public static DatabaseConnection getInstance() throws SQLException {
         if (DatabaseConnection.instance == null)

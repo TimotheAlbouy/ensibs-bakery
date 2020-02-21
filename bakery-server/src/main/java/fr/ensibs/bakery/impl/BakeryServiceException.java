@@ -32,7 +32,7 @@ public class BakeryServiceException extends Exception {
     }
 
     /**
-     * Get the HTTP status code of the error
+     * Get the HTTP status code of the error.
      * @return the HTTP status code
      */
     public int getHttpCode() {

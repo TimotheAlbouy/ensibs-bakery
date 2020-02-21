@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Built-By: Gwenn
-Build-Jdk: 13.0.2
-Main-Class: fr.ensibs.bakery.client.BakeryApp
-Created-By: Maven Integration for Eclipse
-

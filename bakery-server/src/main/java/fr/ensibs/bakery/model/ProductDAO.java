@@ -25,6 +25,7 @@ public class ProductDAO {
 
     /**
      * Private constructor for the singleton pattern.
+     * @throws SQLException when an error occurs
      */
     private ProductDAO() throws SQLException {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -33,6 +34,7 @@ public class ProductDAO {
     /**
      * Instance getter for the singleton pattern.
      * @return the single instance
+     * @throws SQLException when an error occurs
      */
     public static ProductDAO getInstance() throws SQLException {
         if (ProductDAO.instance == null)
@@ -44,6 +46,7 @@ public class ProductDAO {
      * Query a product in the database.
      * @param id the id of the product
      * @return the corresponding product
+     * @throws BakeryServiceException when an error occurs
      */
     public Product getProduct(int id) throws BakeryServiceException {
         try {
@@ -68,6 +71,7 @@ public class ProductDAO {
      * Query a product in the database.
      * @param name the name of the product
      * @return the corresponding product
+     * @throws BakeryServiceException when an error occurs
      */
     public Product getProductByName(String name) throws BakeryServiceException {
         try {
@@ -91,6 +95,7 @@ public class ProductDAO {
     /**
      * Query all the products in the database.
      * @return the list of all the products
+     * @throws BakeryServiceException when an error occurs
      */
     public ArrayList<Product> getAllProducts() throws BakeryServiceException {
         try {
@@ -117,7 +122,7 @@ public class ProductDAO {
      * Create a new product in the database
      * @param name the name of the product
      * @param price the price of the product
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     public void createProduct(String name, int price) throws BakeryServiceException {
         try {

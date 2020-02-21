@@ -31,7 +31,7 @@ public class PaymentsServiceImpl implements PaymentsService {
 
     /**
      * Constructor.
-     * @throws SQLException
+     * @throws SQLException when an error occurs
      */
     public PaymentsServiceImpl() throws SQLException {
         this.orderDAO = OrderDAO.getInstance();

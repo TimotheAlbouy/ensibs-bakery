@@ -33,6 +33,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     /**
      * Constructor.
+     * @throws SQLException when an error occurs
      */
     public OrdersServiceImpl() throws SQLException {
         this.orderDAO = OrderDAO.getInstance();

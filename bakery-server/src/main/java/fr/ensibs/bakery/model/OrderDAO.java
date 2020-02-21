@@ -25,6 +25,7 @@ public class OrderDAO {
 
     /**
      * Private constructor for the singleton pattern.
+     * @throws SQLException when an error occurs
      */
     private OrderDAO() throws SQLException {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -33,6 +34,7 @@ public class OrderDAO {
     /**
      * Instance getter for the singleton pattern.
      * @return the single instance
+     * @throws SQLException when an error occurs
      */
     public static OrderDAO getInstance() throws SQLException {
         if (OrderDAO.instance == null)
@@ -44,6 +46,7 @@ public class OrderDAO {
      * Query all the orders belonging to the given user in the database.
      * @param userId the id of the user
      * @return the list of orders
+     * @throws BakeryServiceException when an error occurs
      */
     public ArrayList<Order> getOrdersByUser(int userId) throws BakeryServiceException {
         try {
@@ -73,7 +76,7 @@ public class OrderDAO {
      * Get the invoice of the user.
      * @param name the name of the user
      * @return the invoice to pay
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     public int getInvoiceByName(String name) throws BakeryServiceException {
         try {
@@ -94,7 +97,7 @@ public class OrderDAO {
     /**
      * Pay the invoice of the user.
      * @param name the name of the user
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     public void payInvoiceByName(String name) throws BakeryServiceException {
         try {
@@ -110,6 +113,7 @@ public class OrderDAO {
      * @param productId the id of the associated product
      * @param userId the id of the associated user
      * @param quantity the quantity of the same product to order
+     * @throws BakeryServiceException when an error occurs
      */
     public void createOrder(int productId, int userId, int quantity) throws BakeryServiceException {
         try {
@@ -128,6 +132,7 @@ public class OrderDAO {
      * Create a new product in the database.
      * @param name the name of the product
      * @param price the price of the product
+     * @throws BakeryServiceException when an error occurs
      */
     public void createProduct(String name, int price) throws BakeryServiceException {
         try {

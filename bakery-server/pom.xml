@@ -38,12 +38,28 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- create a war with classpath to the lib/ dependencies -->
+            <!-- generate the javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <sourceFileIncludes>
+                        <include>**/jbcrypt.java</include>
+                    </sourceFileIncludes>
+                </configuration>
+            </plugin>
+            <!-- create a war -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

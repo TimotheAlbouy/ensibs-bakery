@@ -27,6 +27,7 @@ public class UsersServiceImpl implements UsersService {
     
     /**
      * Constructor.
+     * @throws SQLException when an error occurs
      */
     public UsersServiceImpl() throws SQLException {
         this.userDAO = UserDAO.getInstance();

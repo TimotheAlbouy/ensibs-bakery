@@ -25,6 +25,7 @@ public class UserDAO {
 
     /**
      * Private constructor for the singleton pattern.
+     * @throws SQLException when an error occurs
      */
     private UserDAO() throws SQLException {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -33,6 +34,7 @@ public class UserDAO {
     /**
      * Instance getter for the singleton pattern.
      * @return the single instance
+     * @throws SQLException when an error occurs
      */
     public static UserDAO getInstance() throws SQLException {
         if (UserDAO.instance == null)
@@ -44,6 +46,7 @@ public class UserDAO {
      * Query a user by name in the database.
      * @param name the name of the user
      * @return the corresponding user
+     * @throws BakeryServiceException when an error occurs
      */
     public User getUserByName(String name) throws BakeryServiceException {
         try {
@@ -70,6 +73,7 @@ public class UserDAO {
      * Query a user by token in the database.
      * @param token the token of the user
      * @return the corresponding user
+     * @throws BakeryServiceException when an error occurs
      */
     public User getUserByToken(String token) throws BakeryServiceException {
         try {
@@ -95,6 +99,7 @@ public class UserDAO {
     /**
      * Query all the users in the database.
      * @return the list of all the users
+     * @throws BakeryServiceException when an error occurs
      */
     public ArrayList<User> getAllUsers() throws BakeryServiceException {
         try {
@@ -124,6 +129,7 @@ public class UserDAO {
      * @param name the name of the user
      * @param passwordHash the hash of the password of the user
      * @param token the token of the user
+     * @throws BakeryServiceException when an error occurs
      */
     public void createUser(String name, String passwordHash, String token) throws BakeryServiceException {
         try {
@@ -142,7 +148,7 @@ public class UserDAO {
      * Update the token of the user.
      * @param name the name of the user
      * @param newToken the new token of the user
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     public void updateToken(String name, String newToken) throws BakeryServiceException {
         try {
@@ -160,7 +166,7 @@ public class UserDAO {
      * Set the administrator rights of an user.
      * @param name the name of the user
      * @param isAdmin whether the user must have admin rights or not
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     public void setAdmin(String name, boolean isAdmin) throws BakeryServiceException {
         try {
@@ -177,7 +183,7 @@ public class UserDAO {
     /**
      * Delete an user.
      * @param name the name of the user
-     * @throws BakeryServiceException
+     * @throws BakeryServiceException when an error occurs
      */
     public void deleteUser(String name) throws BakeryServiceException {
         try {
