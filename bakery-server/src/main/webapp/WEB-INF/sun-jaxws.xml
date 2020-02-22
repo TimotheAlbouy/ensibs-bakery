@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
-    <endpoint name="UsersService" implementation="fr.ensibs.bakery.impl.UsersServiceImpl" url-pattern="/users"/>
-    <endpoint name="OrdersService" implementation="fr.ensibs.bakery.impl.OrdersServiceImpl" url-pattern="/orders"/>
-    <endpoint name="PaymentsService" implementation="fr.ensibs.bakery.impl.PaymentsServiceImpl" url-pattern="/payments"/>
+    <endpoint name="UsersService"
+              implementation="fr.ensibs.bakery.impl.UsersServiceImpl"
+              url-pattern="/users" />
+    <endpoint name="OrdersService"
+              implementation="fr.ensibs.bakery.impl.OrdersServiceImpl"
+              url-pattern="/orders" />
+    <endpoint name="PaymentsService"
+              implementation="fr.ensibs.bakery.impl.PaymentsServiceImpl"
+              url-pattern="/payments" />
 </endpoints>

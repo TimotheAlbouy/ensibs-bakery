@@ -30,22 +30,23 @@ public interface OrdersService {
             throws BakeryServiceException;
 
     /**
-     * Get the list of orders of the given user.
-     * @param name the name of the user
-     * @return the list of orders of the user
+     * Get the list of orders of the customer.
+     * @param customerToken the token of the customer
+     * @return the list of orders of the customer
 	 * @throws BakeryServiceException when an error occurs
      */
-    @WebMethod(operationName = "getOrdersByUser")
-    ArrayList<Order> getOrdersByUser(@WebParam(name = "name") String name)
+    @WebMethod(operationName = "getOrders")
+    ArrayList<Order> getOrders(@WebParam(name = "customerToken") String customerToken)
             throws BakeryServiceException;
 
     /**
-     * Get the list of products that the user can order.
+     * Get the list of products that the customer can order.
+     * @param customerToken the token of the customer
      * @return the list of available products
 	 * @throws BakeryServiceException when an error occurs
      */
-    @WebMethod(operationName = "getAllProducts")
-    ArrayList<Product> getAllProducts() throws BakeryServiceException;
+    @WebMethod(operationName = "getProducts")
+    ArrayList<Product> getProducts(String customerToken) throws BakeryServiceException;
 
     /**
      * Add a new product to the bakery.
