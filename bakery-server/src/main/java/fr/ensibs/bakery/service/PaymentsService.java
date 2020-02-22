@@ -15,7 +15,7 @@ public interface PaymentsService {
     /**
      * Get the invoice that the customer has to pay.
      * @param customerToken the token of the customer
-     * @return the invoice
+     * @return the invoice of the orders
      * @throws BakeryServiceException when an error occurs
      */
     @WebMethod(operationName = "getInvoice")

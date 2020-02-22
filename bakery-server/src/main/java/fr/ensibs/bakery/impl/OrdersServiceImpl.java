@@ -65,16 +65,22 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public ArrayList<Order> getOrdersByUser(String name) throws BakeryServiceException {
-        User user = this.userDAO.getUserByName(name);
+    public ArrayList<Order> getOrders(String customerToken) throws BakeryServiceException {
+        // check that the user exists
+        User user = this.userDAO.getUserByToken(customerToken);
         if (user == null)
-            throw new BakeryServiceException(404);
+            throw new BakeryServiceException(401);
 
         return this.orderDAO.getOrdersByUser(user.getId());
     }
 
     @Override
-    public ArrayList<Product> getAllProducts() throws BakeryServiceException {
+    public ArrayList<Product> getProducts(String customerToken) throws BakeryServiceException {
+        // check that the user exists
+        User user = this.userDAO.getUserByToken(customerToken);
+        if (user == null)
+            throw new BakeryServiceException(401);
+
         return this.productDAO.getAllProducts();
     }
 
