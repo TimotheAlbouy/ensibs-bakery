@@ -24,9 +24,9 @@ Then move to the `bakery-server/target` folder:
 
     cd bakery-server/target
 
-To launch , enter:
+To launch the web-services in the Docker container, enter:
 
-    docker ?????
+    docker run --rm --name bakery-tomcat -v bakery-server-1.war:/usr/local/tomcat/webapps/bakery-server-1.war -it -p 8080:8080 tomcat:9.0.12-jre10-slim
 
 Finally, you can access the web-services at the following URLs:
 
