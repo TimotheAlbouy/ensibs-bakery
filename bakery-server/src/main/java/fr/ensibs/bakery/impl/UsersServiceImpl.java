@@ -28,8 +28,9 @@ public class UsersServiceImpl implements UsersService {
     /**
      * Constructor.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public UsersServiceImpl() throws SQLException {
+    public UsersServiceImpl() throws SQLException, ClassNotFoundException {
         this.userDAO = UserDAO.getInstance();
     }
     

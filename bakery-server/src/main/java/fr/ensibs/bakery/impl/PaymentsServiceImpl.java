@@ -32,8 +32,9 @@ public class PaymentsServiceImpl implements PaymentsService {
     /**
      * Constructor.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public PaymentsServiceImpl() throws SQLException {
+    public PaymentsServiceImpl() throws SQLException, ClassNotFoundException {
         this.orderDAO = OrderDAO.getInstance();
         this.productDAO = ProductDAO.getInstance();
         this.userDAO = UserDAO.getInstance();

@@ -26,8 +26,9 @@ public class OrderDAO {
     /**
      * Private constructor for the singleton pattern.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    private OrderDAO() throws SQLException {
+    private OrderDAO() throws SQLException, ClassNotFoundException {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
     
@@ -35,8 +36,9 @@ public class OrderDAO {
      * Instance getter for the singleton pattern.
      * @return the single instance
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public static OrderDAO getInstance() throws SQLException {
+    public static OrderDAO getInstance() throws SQLException, ClassNotFoundException {
         if (OrderDAO.instance == null)
             OrderDAO.instance = new OrderDAO();
         return OrderDAO.instance;

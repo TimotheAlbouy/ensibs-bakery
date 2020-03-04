@@ -24,8 +24,10 @@ public class DatabaseConnection {
     /**
      * Private constructor for the singleton pattern.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    private DatabaseConnection() throws SQLException {
+    private DatabaseConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
         this.connection = DriverManager.getConnection(DB_URL);
         System.out.println("Connection to SQLite has been established.");
     }
@@ -34,8 +36,9 @@ public class DatabaseConnection {
      * Instance getter for the singleton pattern.
      * @return the single instance
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public static DatabaseConnection getInstance() throws SQLException {
+    public static DatabaseConnection getInstance() throws SQLException, ClassNotFoundException {
         if (DatabaseConnection.instance == null)
             DatabaseConnection.instance = new DatabaseConnection();
         return DatabaseConnection.instance;

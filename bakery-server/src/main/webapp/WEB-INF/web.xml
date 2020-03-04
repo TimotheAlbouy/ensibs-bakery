@@ -6,15 +6,39 @@
     <display-name>bakery-ws</display-name>
 
     <servlet>
-        <display-name>UsersService,OrdersService,PaymentsService</display-name>
-        <servlet-name>UsersService,OrdersService,PaymentsService</servlet-name>
+        <display-name>UsersService</display-name>
+        <servlet-name>UsersService</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <display-name>OrdersService</display-name>
+        <servlet-name>OrdersService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <display-name>PaymentsService</display-name>
+        <servlet-name>PaymentsService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
-        <servlet-name>UsersService,OrdersService,PaymentsService</servlet-name>
-        <url-pattern>/users,/orders,/payments</url-pattern>
+        <servlet-name>UsersService</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>OrdersService</servlet-name>
+        <url-pattern>/orders</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>PaymentsService</servlet-name>
+        <url-pattern>/payments</url-pattern>
     </servlet-mapping>
 
     <listener>

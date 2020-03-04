@@ -26,8 +26,9 @@ public class ProductDAO {
     /**
      * Private constructor for the singleton pattern.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    private ProductDAO() throws SQLException {
+    private ProductDAO() throws SQLException, ClassNotFoundException {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
@@ -35,8 +36,9 @@ public class ProductDAO {
      * Instance getter for the singleton pattern.
      * @return the single instance
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public static ProductDAO getInstance() throws SQLException {
+    public static ProductDAO getInstance() throws SQLException, ClassNotFoundException {
         if (ProductDAO.instance == null)
             ProductDAO.instance = new ProductDAO();
         return ProductDAO.instance;

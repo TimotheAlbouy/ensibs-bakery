@@ -43,7 +43,8 @@ public class BakeryServicesPublisher {
             System.out.println("The port number must be an integer between 0 and 65535.");
         } catch (SQLException e) {
             System.out.println("An error occurred while retrieving the database connection: " + e.getMessage());
-            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("An error occurred while retrieving the SQLite driver: " + e.getMessage());
         }
     }
 

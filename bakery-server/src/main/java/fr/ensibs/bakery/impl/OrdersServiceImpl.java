@@ -34,8 +34,9 @@ public class OrdersServiceImpl implements OrdersService {
     /**
      * Constructor.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public OrdersServiceImpl() throws SQLException {
+    public OrdersServiceImpl() throws SQLException, ClassNotFoundException {
         this.orderDAO = OrderDAO.getInstance();
         this.productDAO = ProductDAO.getInstance();
         this.userDAO = UserDAO.getInstance();

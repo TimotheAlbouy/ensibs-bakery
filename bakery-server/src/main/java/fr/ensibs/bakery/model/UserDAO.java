@@ -26,8 +26,9 @@ public class UserDAO {
     /**
      * Private constructor for the singleton pattern.
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    private UserDAO() throws SQLException {
+    private UserDAO() throws SQLException, ClassNotFoundException {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
     
@@ -35,8 +36,9 @@ public class UserDAO {
      * Instance getter for the singleton pattern.
      * @return the single instance
      * @throws SQLException when an error occurs
+     * @throws ClassNotFoundException when an error occurs
      */
-    public static UserDAO getInstance() throws SQLException {
+    public static UserDAO getInstance() throws SQLException, ClassNotFoundException {
         if (UserDAO.instance == null)
             UserDAO.instance = new UserDAO();
         return UserDAO.instance;
